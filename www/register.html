@@ -1,35 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>register</title>
-
-    <!--Onsen UIの読み込み-->
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-
-    <script>
-        ons.bootstrap();
-    </script>
-</head>
-<body>
-
-<!--Navigationを利用する際には、<ons-page>外の要素を削除する-->
 <ons-page id="register">
-    <ons-toolbar>
-        <div class="center">THE 川柳 2019</div>
-    </ons-toolbar>
 
     <div style="text-align: center; margin-top: 30px;">
         <p>
-            <ons-input id="mailaddress" modifier="underbar" placeholder="メールアドレス" float></ons-input>
+            <ons-input id="Register_mailaddress" modifier="underbar" placeholder="メールアドレス" float></ons-input>
         </p>
         <p>
-            <ons-input id="password" modifier="underbar" type="password" placeholder="パスワード(半角英小文字大文字数字を4文字以上15文字以下)" float></ons-input>
+            <ons-input id="Register_password" modifier="underbar" type="password" placeholder="パスワード(半角英小文字大文字数字を4文字以上15文字以下)" float></ons-input>
         </p>
         <p>
-            <ons-input id="repassword" modifier="underbar" type="password" placeholder="パスワード(再入力)" float></ons-input>
+            <ons-input id="Register_repassword" modifier="underbar" type="password" placeholder="パスワード(再入力)" float></ons-input>
         </p>
         <p style="margin-top: 30px;">
             <ons-button onclick="Register_Account()">登録する</ons-button>
@@ -44,9 +23,9 @@
         var Register_Account = function () {
             var alertStr = "";
             var array = [];
-            array.push(document.getElementById('mailaddress').value);
-            array.push(document.getElementById('password').value);
-            array.push(document.getElementById('repassword').value);
+            array.push(document.getElementById('Register_mailaddress').value);
+            array.push(document.getElementById('Register_password').value);
+            array.push(document.getElementById('Register_repassword').value);
 
 
             var patternMail = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
@@ -102,7 +81,3 @@
         };
     </script>
 </ons-page>
-<!--Navigationを利用する際には、</ons-page>外の要素を削除する-->
-
-</body>
-</html>
