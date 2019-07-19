@@ -49,15 +49,21 @@
             array.push(document.getElementById('SenryuLine_2').value);
             array.push(document.getElementById('SenryuLine_3').value);
 
-            console.log("arrayの中身" + array)
+            console.log("arrayの中身" + array);
 
             // ons.notification.alert('Congratulations!' + array);
-            var pattern5 = /^[あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぁぃぅぇぉゃゅょっ]{5}$/g;
-            var pattern7 = /^[あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをんぁぃぅぇぉゃゅょっ]{7}$/g;
+            var pattern5 = /^[あ-んぁ-ょ]{5}$/g;
+            var pattern7 = /^[あ-んぁ-ょ]{7}$/g;
 
             if (array[0].match(pattern5) != null && array[1].match(pattern7) != null && array[2].match(pattern5) != null) {
                 // Todo 正しく575で書かれていた場合の処理を書く
-
+                var post_Master = new post_master();
+                post_Master
+                    .set("userId", 1)
+                    .set("odaiId", 3)
+                    .set("userName", "testMan")
+                    .set("senryu", `${array[0]} ${array[1]} ${array[2]}`)
+                    .save();
                 // 投句に成功した場合に実行するalert
                 ons.notification.alert('Congratulations!' + array + "で投句しました!!");
 
