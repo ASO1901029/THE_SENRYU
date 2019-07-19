@@ -14,31 +14,95 @@
     </script>
 </head>
 <body>
-<ons-page>
+
+<!--Navigationを利用する際には、<ons-page>外の要素を削除する-->
+<ons-page id="register">
     <ons-toolbar>
         <div class="center">THE 川柳 2019</div>
     </ons-toolbar>
 
     <div style="text-align: center; margin-top: 30px;">
         <p>
-            <ons-input id="nickname" modifier="underbar" placeholder="ニックネーム" float></ons-input>
-        </p>
-        <p>
             <ons-input id="mailaddress" modifier="underbar" placeholder="メールアドレス" float></ons-input>
         </p>
         <p>
-            <ons-input id="password" modifier="underbar" type="password" placeholder="パスワード" float></ons-input>
+            <ons-input id="password" modifier="underbar" type="password" placeholder="パスワード(半角英小文字大文字数字を4文字以上15文字以下)" float></ons-input>
         </p>
         <p>
             <ons-input id="repassword" modifier="underbar" type="password" placeholder="パスワード(再入力)" float></ons-input>
         </p>
         <p style="margin-top: 30px;">
-            <ons-button onclick="hoge()">登録する</ons-button>
+            <ons-button onclick="Register_Account()">登録する</ons-button>
         </p>
         <p style="margin-top: 30px;">
-            <ons-button onclick="hogehoge()">登録せずに利用する</ons-button>
+            <ons-button onclick="Pop_Index()">登録せずに利用する</ons-button>
         </p>
     </div>
+
+    <script>
+        // 「登録する」ボタンを押されたときの処理
+        var Register_Account = function () {
+            var alertStr = "";
+            var array = [];
+            array.push(document.getElementById('mailaddress').value);
+            array.push(document.getElementById('password').value);
+            array.push(document.getElementById('repassword').value);
+
+
+            var patternMail = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
+            var patternPass = /^[0-9a-zA-Z]{4,15}$/;
+
+            if(array[0].match(patternMail) == null){
+                alertStr += "メールアドレスを正しい形式で入力してください<br><br>"
+            }
+            if(array[1].match(patternPass) == null || array[2].match(patternPass) == null){
+                alertStr += "パスワードは半角英小文字大文字数字の4文字以上15文字以下で入力してください<br><br>"
+            }
+            if(array[1] != array[2]){
+                alertStr += "入力されたパスワードが一致しません"
+            }
+
+            if(alertStr == "") {
+                // Todo メールアドレスとパスワードが正しい形式で入力された場合の処理を書く
+
+                localStorage.setItem("isLoginned",true);
+                localStorage.setItem("isReadOnly",false);
+
+                // 投句に成功した場合に実行するalert
+                ons.notification.alert("登録が完了しました！！");
+
+                // 投句処理を終えたらmain.htmlへ遷移する
+                // main.htmlへpushするか、popしてindexからmainへ遷移するか
+
+                // myNavigator.popPage()
+                // document.querySelector('#myNavigator').pushPage('main.html', {data: {title: 'Register'}});
+
+            } else {
+                ons.notification.alert({
+                    // message: 'メッセージ',
+                    messageHTML: alertStr,
+                    // もしくはmessageHTML: '<div>HTML形式のメッセージ</div>',
+                    title: '登録失敗！！',
+                    buttonLabel: 'OK',
+                    animation: 'default', // もしくは'none'
+                    // modifier: 'optional-modifier'
+                    callback: function() {
+                        // ボタンがタップされた
+                    }
+                });
+
+            }
+        };
+
+        // ToDo Index.htmlへpopする前に、非ログインのフラグを設定する
+        var Pop_Index = function(){
+            localStorage.setItem("isLoginned",false);
+            localStorage.setItem("isReadOnly",true);
+            // myNavigator.popPage();
+        };
+    </script>
 </ons-page>
+<!--Navigationを利用する際には、</ons-page>外の要素を削除する-->
+
 </body>
 </html>
