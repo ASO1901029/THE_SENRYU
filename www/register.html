@@ -28,7 +28,7 @@
             array.push(document.getElementById('Register_repassword').value);
 
 
-            var patternMail = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/;
+            var patternMail = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@[A-Za-z0-9_.-]+\.[A-Za-z0-9]+$/;
             var patternPass = /^[0-9a-zA-Z]{4,15}$/;
 
             if(array[0].match(patternMail) == null){
@@ -49,6 +49,7 @@
 
                 // 投句に成功した場合に実行するalert
                 ons.notification.alert("登録が完了しました！！");
+                location.reload();
 
                 // 投句処理を終えたらmain.htmlへ遷移する
                 // main.htmlへpushするか、popしてindexからmainへ遷移するか
@@ -77,7 +78,7 @@
         var Pop_Index = function(){
             localStorage.setItem("isLoginned",false);
             localStorage.setItem("isReadOnly",true);
-            // myNavigator.popPage();
+            location.reload();
         };
     </script>
 </ons-page>

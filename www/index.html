@@ -39,19 +39,38 @@
         var userId = 1
 
     </script>
-    <script>
-        document.addEventListener('init', function (event) {
-            var page = event.target;
-            page.querySelector('#push-button').onclick = function () {
-                document.querySelector('#myNavigator').pushPage('post.html', {data: {title: 'Post'}});
-            };
-        });
-    </script>
 
 </head>
 <body>
 <ons-page>
-    <ons-navigator swipeable id="myNavigator" page="main.html"></ons-navigator>
+    <div id="index_Navigator"></div>
+<!--        <ons-navigator swipeable id="myNavigator" page="main.html"></ons-navigator>-->
+    </div>
 </ons-page>
 </body>
+<script>
+    document.addEventListener('init', function (event) {
+        var page = event.target;
+        page.querySelector('#push-button').onclick = function () {
+            document.querySelector('#myNavigator').pushPage('post.html', {data: {title: 'Post'}});
+        };
+    });
+
+    function load_Navigator() {
+        var isLoginned = localStorage.getItem("isLoginned")
+        var isReadOnly = localStorage.getItem("isReadOnly")
+        var IndexStr = "";
+
+        if(isLoginned || isReadOnly){
+            IndexStr = '<ons-navigator swipeable id="myNavigator" page="main.html"></ons-navigator>';
+        }else{
+            IndexStr = '<ons-navigator swipeable id="myNavigator" page="login_navigation.html"></ons-navigator>'
+        }
+
+        $("#index_Navigator").append(IndexStr);
+
+    }
+
+    load_Navigator();
+</script>
 </html>
