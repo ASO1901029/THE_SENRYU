@@ -43,7 +43,9 @@
             }
 
             if (alertStr === "") {
-                console.log("user登録OK")
+                //TODO:同じメールアドレスで登録しようとした場合の処理
+
+                console.log("user登録OK");
                 var user_Master = new user_master();
                 user_Master
                     .set("mail", mail)
@@ -55,17 +57,6 @@
                         localStorage.setItem("userId", result.objectId);
                         location.reload();
                     });
-
-                // 投句に成功した場合に実行するalert
-                // ons.notification.alert("登録が完了しました！！");
-                // location.reload();
-
-                // 投句処理を終えたらmain.htmlへ遷移する
-                // main.htmlへpushするか、popしてindexからmainへ遷移するか
-
-                // myNavigator.popPage()
-                // document.querySelector('#myNavigator').pushPage('main.html', {data: {title: 'Register'}});
-
             } else {
                 ons.notification.alert({
                     // message: 'メッセージ',
