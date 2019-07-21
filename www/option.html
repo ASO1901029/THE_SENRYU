@@ -32,4 +32,15 @@
         </ons-list-item>
     </ons-list>
 
+    <p style="text-align: center;">
+        <ons-button onClick="Logout_Account()">ログアウト</ons-button>
+    </p>
+
+    <script>
+        var Logout_Account = function () {
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+
 </ons-page>
