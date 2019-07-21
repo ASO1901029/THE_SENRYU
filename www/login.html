@@ -16,21 +16,28 @@
     </div>
 
     <script>
-        var Login_Account = function(){
-            var array = [];
-            array.push(document.getElementById('Login_mailaddress').value);
-            array.push(document.getElementById('Login_password').value);
+        var Login_Account = function () {
+            var email = document.getElementById('Login_mailaddress').value;
+            var pass = document.getElementById('Login_password').value;
 
-            // ToDo ログインする処理が必要
-
-
-            // フラグを設定する
-            localStorage.setItem("isLoginned",true);
-            localStorage.setItem("isReadOnly",false);
-
-            // ログインに成功した場合に実行するalert
-            ons.notification.alert("ログインしました！！");
-            location.reload();
+            user_master
+                .count()
+                .equalTo("mail", email)
+                .equalTo("pass", pass)
+                .fetchAll()
+                .then(function (result) {
+                    if (result.count) {
+                        ons.notification.alert({
+                            message: "ログインに失敗しました。"
+                        })
+                    } else {
+                        userId = JSON.stringify(result[0].userId); //userIdをセット
+                        localStorage.setItem("userId", userId); //ローカルストレージに保存する
+                        isReadOnly = false;
+                        // alert(localStorage.getItem("userId")); 保存できているかの確認用
+                        location.reload();//成功したので再読込する
+                    }
+                });
         }
     </script>
 </ons-page>
