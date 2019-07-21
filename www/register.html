@@ -26,9 +26,8 @@
             var alertStr = "";
 
             var mail = document.getElementById('Register_mailaddress').value;
-            var pass = document.getElementById('Register_password').value;
+            var pass1 = document.getElementById('Register_password').value;
             var pass2 = document.getElementById('Register_repassword').value;
-
 
             var patternMail = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@[A-Za-z0-9_.-]+\.[A-Za-z0-9]+$/;
             var patternPass = /^[0-9a-zA-Z]{4,15}$/;
@@ -36,23 +35,30 @@
             if (mail.match(patternMail) == null) {
                 alertStr += "メールアドレスを正しい形式で入力してください<br><br>"
             }
-            if (pass.match(patternPass) == null || pass2.match(patternPass) == null) {
+            if (pass1.match(patternPass) == null) {
                 alertStr += "パスワードは半角英小文字大文字数字の4文字以上15文字以下で入力してください<br><br>"
             }
             if (pass1 !== pass2) {
                 alertStr += "入力されたパスワードが一致しません"
             }
 
-            if (alertStr) {
-                // Todo メールアドレスとパスワードが正しい形式で入力された場合の処理を書く
-
-
-                localStorage.setItem("isLoginned", true);
-                localStorage.setItem("isReadOnly", false);
+            if (alertStr === "") {
+                console.log("user登録OK")
+                var user_Master = new user_master();
+                user_Master
+                    .set("mail", mail)
+                    .set("pass", pass1)
+                    .save()
+                    .then(function (result) {
+                        console.log(`userId:${result.objectId}`);
+                        localStorage.clear();
+                        localStorage.setItem("userId", result.objectId);
+                        location.reload();
+                    });
 
                 // 投句に成功した場合に実行するalert
-                ons.notification.alert("登録が完了しました！！");
-                location.reload();
+                // ons.notification.alert("登録が完了しました！！");
+                // location.reload();
 
                 // 投句処理を終えたらmain.htmlへ遷移する
                 // main.htmlへpushするか、popしてindexからmainへ遷移するか
