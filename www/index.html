@@ -36,11 +36,12 @@
         //userIdを取得する処理
         var userId;
         var isLoginned = false;
+        var isReadOnly = false;
         try {
             userId = localStorage.getItem("userId");
             isLoginned = true;
         } catch (e) {
-            e.log("userIdの取得ができませんでした。")
+            e.log("userIdの取得ができませんでした。ログインしてください。")
         }
 
     </script>
