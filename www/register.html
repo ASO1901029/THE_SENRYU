@@ -39,11 +39,11 @@
             if (array[1].match(patternPass) == null || array[2].match(patternPass) == null) {
                 alertStr += "パスワードは半角英小文字大文字数字の4文字以上15文字以下で入力してください<br><br>"
             }
-            if (array[1] != array[2]) {
+            if (array[1] !== array[2]) {
                 alertStr += "入力されたパスワードが一致しません"
             }
 
-            if (alertStr == "") {
+            if (alertStr) {
                 // Todo メールアドレスとパスワードが正しい形式で入力された場合の処理を書く
 
                 localStorage.setItem("isLoginned", true);
