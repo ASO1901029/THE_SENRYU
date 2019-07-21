@@ -47,6 +47,9 @@
         } catch (e) {
             e.log("userIdの取得ができませんでした。ログインしてください。")
         }
+        try {
+            isReadOnly = localStorage.getItem("isReadOnly");
+        } catch (e) {}
 
     </script>
 
@@ -69,7 +72,7 @@
     function load_Navigator() {
         var IndexStr = "";
 
-        if (isLoginned) {
+        if (isLoginned || isReadOnly) {
             IndexStr = '<ons-navigator swipeable id="myNavigator" page="main.html"></ons-navigator>';
         } else {
             IndexStr = '<ons-navigator swipeable id="myNavigator" page="login_navigation.html"></ons-navigator>'
