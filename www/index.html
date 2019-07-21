@@ -38,8 +38,12 @@
         var isLoginned = false;
         var isReadOnly = false;
         try {
-            userId = localStorage.getItem("userId");
-            isLoginned = true;
+            var id = localStorage.getItem("userId");
+            if (id != null) {
+                isLoginned = true;
+                userId = id;
+                console.log(`userId:${userId}`);
+            }
         } catch (e) {
             e.log("userIdの取得ができませんでした。ログインしてください。")
         }

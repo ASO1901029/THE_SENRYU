@@ -26,16 +26,17 @@
                 .equalTo("pass", pass)
                 .fetchAll()
                 .then(function (result) {
-                    if (result.count) {
-                        ons.notification.alert({
-                            message: "ログインに失敗しました。"
-                        })
-                    } else {
+                    if (result.count) { //0以外の値（つまり見つかってたらture）
                         userId = JSON.stringify(result[0].userId); //userIdをセット
                         localStorage.setItem("userId", userId); //ローカルストレージに保存する
+                        alert(userId)
                         isReadOnly = false;
                         // alert(localStorage.getItem("userId")); 保存できているかの確認用
                         location.reload();//成功したので再読込する
+                    } else {//0 つまり見つからなかったら
+                        ons.notification.alert({
+                            message: "ログインに失敗しました。"
+                        })
                     }
                 });
         }
