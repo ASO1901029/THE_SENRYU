@@ -34,9 +34,14 @@
         const user_master = ncmb.DataStore("user_master");
 
         //userIdを取得する処理
-        // var userId = localStorage.getItem("userId")
-        // TODO:とりあえずテスト用に1を設定
-        var userId = 1
+        var userId;
+        var isLoginned = false;
+        try {
+            userId = localStorage.getItem("userId");
+            isLoginned = true;
+        } catch (e) {
+            e.log("userIdの取得ができませんでした。")
+        }
 
     </script>
 
@@ -44,7 +49,7 @@
 <body>
 <ons-page>
     <div id="index_Navigator"></div>
-<!--        <ons-navigator swipeable id="myNavigator" page="main.html"></ons-navigator>-->
+    <!--        <ons-navigator swipeable id="myNavigator" page="main.html"></ons-navigator>-->
     </div>
 </ons-page>
 </body>
@@ -57,13 +62,11 @@
     });
 
     function load_Navigator() {
-        var isLoginned = localStorage.getItem("isLoginned")
-        var isReadOnly = localStorage.getItem("isReadOnly")
         var IndexStr = "";
 
-        if(isLoginned || isReadOnly){
+        if (isLoginned) {
             IndexStr = '<ons-navigator swipeable id="myNavigator" page="main.html"></ons-navigator>';
-        }else{
+        } else {
             IndexStr = '<ons-navigator swipeable id="myNavigator" page="login_navigation.html"></ons-navigator>'
         }
 
