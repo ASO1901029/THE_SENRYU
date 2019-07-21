@@ -5,16 +5,18 @@
             <ons-input id="Register_mailaddress" modifier="underbar" placeholder="メールアドレス" float></ons-input>
         </p>
         <p>
-            <ons-input id="Register_password" modifier="underbar" type="password" placeholder="パスワード(半角英小文字大文字数字を4文字以上15文字以下)" float></ons-input>
+            <ons-input id="Register_password" modifier="underbar" type="password"
+                       placeholder="パスワード(半角英小文字大文字数字を4文字以上15文字以下)" float></ons-input>
         </p>
         <p>
-            <ons-input id="Register_repassword" modifier="underbar" type="password" placeholder="パスワード(再入力)" float></ons-input>
+            <ons-input id="Register_repassword" modifier="underbar" type="password" placeholder="パスワード(再入力)"
+                       float></ons-input>
         </p>
         <p style="margin-top: 30px;">
             <ons-button onclick="Register_Account()">登録する</ons-button>
         </p>
         <p style="margin-top: 30px;">
-            <ons-button onclick="Pop_Index()">登録せずに利用する</ons-button>
+            <ons-button onclick="readOnlyMode()">登録せずに利用する</ons-button>
         </p>
     </div>
 
@@ -31,21 +33,21 @@
             var patternMail = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@[A-Za-z0-9_.-]+\.[A-Za-z0-9]+$/;
             var patternPass = /^[0-9a-zA-Z]{4,15}$/;
 
-            if(array[0].match(patternMail) == null){
+            if (array[0].match(patternMail) == null) {
                 alertStr += "メールアドレスを正しい形式で入力してください<br><br>"
             }
-            if(array[1].match(patternPass) == null || array[2].match(patternPass) == null){
+            if (array[1].match(patternPass) == null || array[2].match(patternPass) == null) {
                 alertStr += "パスワードは半角英小文字大文字数字の4文字以上15文字以下で入力してください<br><br>"
             }
-            if(array[1] != array[2]){
+            if (array[1] != array[2]) {
                 alertStr += "入力されたパスワードが一致しません"
             }
 
-            if(alertStr == "") {
+            if (alertStr == "") {
                 // Todo メールアドレスとパスワードが正しい形式で入力された場合の処理を書く
 
-                localStorage.setItem("isLoginned",true);
-                localStorage.setItem("isReadOnly",false);
+                localStorage.setItem("isLoginned", true);
+                localStorage.setItem("isReadOnly", false);
 
                 // 投句に成功した場合に実行するalert
                 ons.notification.alert("登録が完了しました！！");
@@ -66,7 +68,7 @@
                     buttonLabel: 'OK',
                     animation: 'default', // もしくは'none'
                     // modifier: 'optional-modifier'
-                    callback: function() {
+                    callback: function () {
                         // ボタンがタップされた
                     }
                 });
@@ -75,9 +77,9 @@
         };
 
         // ToDo Index.htmlへpopする前に、非ログインのフラグを設定する
-        var Pop_Index = function(){
-            localStorage.setItem("isLoginned",false);
-            localStorage.setItem("isReadOnly",true);
+        var readOnlyMode = function () {
+            isLoginned = false;
+            isReadOnly = true;
             location.reload();
         };
     </script>
