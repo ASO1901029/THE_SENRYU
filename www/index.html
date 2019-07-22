@@ -52,7 +52,9 @@
         }
         try {
             isReadOnly = localStorage.getItem("isReadOnly");
-            loginStr = "　読取専用"
+            if(isReadOnly) {
+                loginStr = "　読取専用"
+            }
         } catch (e) {}
 
     </script>
