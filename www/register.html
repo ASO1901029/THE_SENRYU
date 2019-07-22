@@ -6,7 +6,7 @@
         </p>
         <p>
             <ons-input id="Register_password" modifier="underbar" type="password"
-                       placeholder="パスワード(半角英小文字大文字数字を4文字以上15文字以下)" float></ons-input>
+                       placeholder="パスワード(半角英数字4-15桁)" float></ons-input>
         </p>
         <p>
             <ons-input id="Register_repassword" modifier="underbar" type="password" placeholder="パスワード(再入力)"
@@ -36,15 +36,13 @@
                 alertStr += "メールアドレスを正しい形式で入力してください<br><br>"
             }
             if (pass1.match(patternPass) == null) {
-                alertStr += "パスワードは半角英小文字大文字数字の4文字以上15文字以下で入力してください<br><br>"
+                alertStr += "パスワードは英数字4-15桁で入力してください<br><br>"
             }
             if (pass1 !== pass2) {
                 alertStr += "入力されたパスワードが一致しません"
             }
 
             if (alertStr === "") {
-                //TODO:同じメールアドレスで登録しようとした場合の処理
-
                 console.log("user登録OK");
                 var user_Master = new user_master();
                 user_Master
@@ -62,7 +60,7 @@
                     // message: 'メッセージ',
                     messageHTML: alertStr,
                     // もしくはmessageHTML: '<div>HTML形式のメッセージ</div>',
-                    title: '登録失敗！！',
+                    title: '登録失敗（やりなおしてね。）',
                     buttonLabel: 'OK',
                     animation: 'default', // もしくは'none'
                     // modifier: 'optional-modifier'
