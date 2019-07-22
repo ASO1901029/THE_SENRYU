@@ -11,6 +11,9 @@
 
     <div style="text-align: center; margin-top: 30px;">
         <p>
+            <ons-input id="penName" modifier="underbar" placeholder="おなまえ（ペンネーム）" max="5" min="5" float></ons-input>
+        </p>
+        <p>
             <ons-input id="SenryuLine_1" modifier="underbar" placeholder="一行目(五文字)" max="5" min="5" float></ons-input>
         </p>
         <p>
@@ -25,9 +28,9 @@
         <p style="margin-top: 30px;">
             <ons-button onClick="myNavigator.popPage()">前の画面に戻る</ons-button>
         </p>
-<!--        <p style="margin-top: 30px;">-->
-<!--            <ons-button onClick="localStorage.clear()">クリア</ons-button>-->
-<!--        </p>-->
+        <!--        <p style="margin-top: 30px;">-->
+        <!--            <ons-button onClick="localStorage.clear()">クリア</ons-button>-->
+        <!--        </p>-->
     </div>
 
     <script>
@@ -39,6 +42,9 @@
 
         // 投句ボタンを押されたときの処理
         var Post_Senryu = function () {
+
+
+            var penName = document.getElementById("penName").value;
             var array = [];
             array.push(document.getElementById('SenryuLine_1').value);
             array.push(document.getElementById('SenryuLine_2').value);
@@ -52,18 +58,38 @@
 
             if (array[0].match(pattern5) != null && array[1].match(pattern7) != null && array[2].match(pattern5) != null) {
                 // Todo 正しく575で書かれていた場合の処理を書く
-                var post_Master = new post_master();
-                post_Master
-                    .set("userId", 1)
-                    .set("odaiId", 3)
-                    .set("userName", "testMan")
-                    .set("senryu", `${array[0]} ${array[1]} ${array[2]}`)
-                    .save();
-                // 投句に成功した場合に実行するalert
-                ons.notification.alert('Congratulations!' + array + "で投句しました!!");
-
-                // 投句処理を終えたら前のページへpopする
-                myNavigator.popPage()
+                ons.notification.confirm({
+                    message: 'この内容で投稿しますか？',
+                    buttonLabels: ["書き直す", "問題ない"],
+                    callback: function (buttonNo) {
+                        if (buttonNo != 1) {
+                            return;
+                        } else {
+                            var post_Master = new post_master();
+                            post_Master
+                                .set("userName", penName)
+                                .set("userId", 1)
+                                .set("odaiId", 3)
+                                .set("userName", "testMan")
+                                .set("senryu", `${array[0]} ${array[1]} ${array[2]}`)
+                                .save()
+                                .then(function () {
+                                    ons.notification.alert({
+                                        message: '投稿しました！',
+                                        callback: function () {
+                                            // 投句処理を終えたらリロードする
+                                            location.reload()
+                                        }
+                                    });
+                                })
+                                .catch(function (e) {
+                                    ons.notification.alert({
+                                        message: '失敗しました・・もう一度試してください',
+                                    });
+                                });
+                        }
+                    }
+                });
 
             } else {
                 // Todo 575で書かれていなかった場合の処理を書く
