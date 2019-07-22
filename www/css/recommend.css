@@ -1,6 +1,5 @@
 .first_line {
-    text-align: center;
-    padding-right: 30%;
+    padding-left: 25%;
 }
 
 .second_line {
@@ -8,11 +7,10 @@
 }
 
 .third_line {
-    text-align: center;
-    padding-left: 30%;
+    text-align: right;
+    padding-right: 25%;
 }
 
 .post_date {
-    text-align: center;
-    padding-left: 60%;
+    text-align: right;
 }
