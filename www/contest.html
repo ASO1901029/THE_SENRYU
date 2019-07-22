@@ -44,7 +44,7 @@
                 .then(function (post) {
                     for (var i in post) {
                         var senryu = post[i].senryu.split(" ");
-
+                        var objectId = post[i].objectId;
                         var postdate = new Date(post[i].createDate);
                         var year = postdate.getFullYear();
                         var month = (" " + (postdate.getMonth() + 1)).slice(-2);
@@ -56,12 +56,35 @@
                             `<div class="second_line">${senryu[1]}</div>` +
                             `<div class="third_line">${senryu[2]}</div>` +
                             `<div class="post_date">\n投稿日:${year}年${month}月${date}日 ${hour}:${min}\n</div>\n` +
+                            `<ons-button onclick="favorite('${objectId}')">いいね！</ons-button>` +
                             `</ons-card>`;
                     }
                     $(".Contest_Main").append(contestStr);
 
                 });
 
+        }
+
+        function favorite(objectId) {
+            post_master
+                .equalTo("objectId", objectId)
+                .fetch()
+                .then(function (results) {
+                    favoriter = results.favoriter;
+                    if (typeof favoriter === 'undefined') {
+                        favoriter = [];
+                    }
+                    if (favoriter.indexOf(userId) >= 0) { //見つかる is すでにいいねしている
+                        ons.notification.toast("既にいいねしています", {timeout: 500, animation: 'fall'});
+                        return;
+                    }
+                    favoriter.push(userId);
+                    console.log(userId);
+                    console.log(favoriter);
+                    results.set("favoriter", favoriter);
+                    ons.notification.toast("いいねしました！", {timeout: 500, animation: 'fall'})
+                    return results.update();
+                });
         }
     </script>
 
