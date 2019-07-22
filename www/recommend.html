@@ -28,10 +28,18 @@
                     .order("endDate", true).order("startDate")
                     .fetchAll()
                     .then(function (odai) { //odaiPostsにお題を詰めていく
+                        var now = new Date();
+                        var skipCount = 0;
                         for (var i = 0; i < odai.length; i++) {
                             var startDate = odai[i].startDate;
                             var endDate = odai[i].endDate;
-                            odaiPosts[odai[i].odaiId] = {"theme": odai[i].theme + " （" + startDate + "～" + endDate + "）"};
+
+                            var tmpEndDate = new Date(endDate);
+                            if (tmpEndDate < now) {
+                                odaiPosts[odai[i - skipCount].odaiId] = {"theme": odai[i].theme + " （" + startDate + "～" + endDate + "）"};
+                            } else {
+                                skipCount++;
+                            }
                         }
                         getRecommendRank()
                     });
@@ -46,26 +54,27 @@
                     .fetchAll()
                     .then(function (post) {
                         for (var i = 0; i < post.length; i++) {
-
-                            switch (post[i].rank - 1) {
-                                case 0:
-                                    odaiPosts[post[i].odaiId].金賞 = {
-                                        senryu: post[i].senryu,
-                                        postdate: post[i].createDate
-                                    };
-                                    break;
-                                case 1:
-                                    odaiPosts[post[i].odaiId].銀賞 = {
-                                        senryu: post[i].senryu,
-                                        postdate: post[i].createDate
-                                    };
-                                    break;
-                                case 2:
-                                    odaiPosts[post[i].odaiId].銅賞 = {
-                                        senryu: post[i].senryu,
-                                        postdate: post[i].createDate
-                                    };
-                                    break;
+                            if (odaiPosts[post[i].odaiId]) {
+                                switch (post[i].rank - 1) {
+                                    case 0:
+                                        odaiPosts[post[i].odaiId].金賞 = {
+                                            senryu: post[i].senryu,
+                                            postdate: post[i].createDate
+                                        };
+                                        break;
+                                    case 1:
+                                        odaiPosts[post[i].odaiId].銀賞 = {
+                                            senryu: post[i].senryu,
+                                            postdate: post[i].createDate
+                                        };
+                                        break;
+                                    case 2:
+                                        odaiPosts[post[i].odaiId].銅賞 = {
+                                            senryu: post[i].senryu,
+                                            postdate: post[i].createDate
+                                        };
+                                        break;
+                                }
                             }
                         }
                         /////////////////////ここから表示
