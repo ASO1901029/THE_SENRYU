@@ -59,19 +59,22 @@
                                     case 0:
                                         odaiPosts[post[i].odaiId].金賞 = {
                                             senryu: post[i].senryu,
-                                            postdate: post[i].createDate
+                                            postdate: post[i].createDate,
+                                            objectId: post[i].objectId
                                         };
                                         break;
                                     case 1:
                                         odaiPosts[post[i].odaiId].銀賞 = {
                                             senryu: post[i].senryu,
-                                            postdate: post[i].createDate
+                                            postdate: post[i].createDate,
+                                            objectId: post[i].objectId
                                         };
                                         break;
                                     case 2:
                                         odaiPosts[post[i].odaiId].銅賞 = {
                                             senryu: post[i].senryu,
-                                            postdate: post[i].createDate
+                                            postdate: post[i].createDate,
+                                            objectId: post[i].objectId
                                         };
                                         break;
                                 }
@@ -90,6 +93,7 @@
                                     tempStr += `${rArr[j]}<ons-card>ごめんけどないよ</ons-card>`;
                                     continue
                                 }
+                                var objectId = posts[j].objectId;
                                 var senryu = posts[j].senryu.split((' ')); //川柳を配列に取得
                                 var postdate = new Date(posts[j].postdate);
                                 var year = postdate.getFullYear();
@@ -103,6 +107,7 @@
                                     `<div class="second_line">\n${senryu[1]}\n</div>\n` +
                                     `<div class="third_line">\n${senryu[2]}\n</div>\n` +
                                     `<div class="post_date">\n投稿日:${year}年${month}月${date}日 ${hour}:${min}\n</div>\n` +
+                                    `<ons-button onclick="favorite('${objectId}')">いいね！</ons-button>` +
                                     `</ons-card>`;
                             }
                             tempStr += "</div>\n</ons-list-item>";
