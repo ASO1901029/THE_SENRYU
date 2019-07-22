@@ -27,7 +27,7 @@
                 .fetchAll()
                 .then(function (result) {
                     if (result.count) { //0以外の値（つまり見つかってたらture）
-                        userId = JSON.stringify(result[0].objectId); //userのobjectIdをセット
+                        userId = result[0].objectId; //userのobjectIdをセット
                         localStorage.setItem("userId", userId); //ローカルストレージに保存する
                         isReadOnly = false;
                         // alert(localStorage.getItem("userId")); 保存できているかの確認用
