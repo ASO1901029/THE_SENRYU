@@ -36,9 +36,7 @@
 
                             var tmpEndDate = new Date(endDate);
                             if (tmpEndDate < now) {
-                                odaiPosts[odai[i - skipCount].odaiId] = {"theme": odai[i].theme + " （" + startDate + "～" + endDate + "）"};
-                            } else {
-                                skipCount++;
+                                odaiPosts[odai[i].odaiId] = {"theme": odai[i].theme + " （" + startDate + "～" + endDate + "）"};
                             }
                         }
                         getRecommendRank()
