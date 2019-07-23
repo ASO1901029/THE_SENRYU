@@ -29,7 +29,6 @@
                     .fetchAll()
                     .then(function (odai) { //odaiPostsにお題を詰めていく
                         var now = new Date();
-                        var skipCount = 0;
                         for (var i = 0; i < odai.length; i++) {
                             var startDate = odai[i].startDate;
                             var endDate = odai[i].endDate;
@@ -105,7 +104,7 @@
                                     `<div class="second_line">\n${senryu[1]}\n</div>\n` +
                                     `<div class="third_line">\n${senryu[2]}\n</div>\n` +
                                     `<div class="post_date">\n投稿日:${year}年${month}月${date}日 ${hour}:${min}\n</div>\n` +
-                                    `<ons-button style="float: right;" onclick="favorite('${objectId}')">いいね！</ons-button>` +
+                                    `<ons-button onclick="favorite('${objectId}')">いいね！</ons-button>` +
                                     `</ons-card>`;
                             }
                             tempStr += "</div>\n</ons-list-item>";
